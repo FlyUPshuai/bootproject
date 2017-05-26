@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SumWebInfo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="SumWebInfo.war">
+      <element id="artifact" artifact-name="SumWebInfo:war exploded" />
+    </root>
+  </artifact>
+</component>
