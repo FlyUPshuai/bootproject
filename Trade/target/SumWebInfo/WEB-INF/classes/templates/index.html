@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<link href="@{/js/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jqPaginator.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<body>
+<div id="search">
+    <table>
+        <tr>
+        	<td>产品id：<input id="productID" name="productID" type="text" value="" /></td>           
+        </tr>
+        <tr>
+            <td>
+                <button onclick="getComputers()">装机量查询</button>
+            </td>
+            <td>
+                <p id="computers" style="color: red"></p>
+            </td>
+			<td>
+                <button onclick="getUsers()">用户量查询</button>
+            </td>
+            <td>
+                <p id="users" style="color: red"></p>
+            </td>
+        </tr>
+        <tr>
+	        <td>
+	        	 最小时间：<input id="mixtime" name="mixtime" type="text" />
+	        </td>
+           	<td>
+           		<button onclick="clickFind()">用户登录时常查询</button>
+           	</td>
+        </tr>
+    </table>
+
+
+</div>
+<div>
+ 	<div id="data" style="height:350px"></div>
+  	<div align="center">
+           <ul class="pagination" id="jqPaginator"></ul>
+	</div>
+</div>
+</body>
+<script >
+
+    //ajax 提交查询条件    返回数据集合  更新datalist展示数据
+    function getComputers() {
+        var productID=$("#productID").val();
+        $.ajax({
+            url: "/user/computers",
+            data: {"productID":productID},
+            type:"POST",
+            success: function (result) {
+                var cp=eval("("+result+")");
+                $("#computers").html(cp.computers);
+            }
+        });
+    }
+    function getUsers() {
+        var productID=$("#productID").val();
+        $.ajax({
+            url: "/user/users",
+            data: {"productID":productID},
+            type:"POST",
+            success: function (result) {
+                var users=eval("("+result+")");
+                $("#users").html(users.users);
+            }
+        });
+    }
+</script>
+<script>
+
+var model = {  
+        pageIndex: 1,      //索引页  
+        pageSize: 50,      //每页列表的行数  
+        pageCount: 1,//总页数
+    }; 
+	
+	function clickFind(){
+		model.pageIndex=1; //重新查询回到首页
+		getUserList();
+	}
+    
+    function getUserList() {  
+		var productID=$("#productID").val();
+		var mixTime=$("#mixtime").val();
+        $.ajax({  
+            type:"POST",  
+            dataType:"json",  
+            url:"/user/loginUsers",   //回发到的页面  
+            data:{"productID":productID,"page":model.pageIndex,"mixTime":mixTime},
+            //async:false, 
+            cache:false, 
+            success: function(data) {
+                var JSON = eval(data);
+                if (JSON == "" || JSON==null ) {
+                        //model.filterCounts = 1;
+                }else{
+                    model.pageSize = JSON.page.pageSize;
+                    model.pageCount = JSON.page.pageSum;
+                    model.pageIndex = JSON.page.page;
+                }  
+                $("#data").empty();   //清空div中内容
+                $("#data").append('<table class="table" id="dataList"><tr><td>line</td><td>用户名</td><td>总时长</td></tr> </table>');
+                for(var user in JSON.loginUsers){
+                	var line = 1+parseInt(user)+parseInt(model.pageSize*(model.pageIndex-1));
+                	var t=document.getElementById("dataList");
+					var r = t.insertRow(t.rows.length);
+					var c1 = r.insertCell();
+					var c2 = r.insertCell(); 
+					var c3 = r.insertCell(); 
+					c1.innerHTML ="<td>"+line+"</td>";
+					c2.innerHTML ="<td>"+JSON.loginUsers[user].name+"</td>";
+					c3.innerHTML ="<td>"+JSON.loginUsers[user].loginTime+"</td>";
+
+				}
+                console.log(model.pageCount);
+                paginator(model.pageIndex, model.pageSize,model.pageCount); 
+                
+            },
+            error:function(){
+                $("#data").empty();   //清空div中内容
+                $("#data").append('<strong><p style="text-indent:2em">No Contents</p></strong>');
+            }
+        });  
+    }
+    
+    function paginator(pageIndex, pageSize, pageCount) {  
+        $.jqPaginator('#jqPaginator', {
+            totalPages: pageCount,
+            visiblePages: 10,
+            currentPage: pageIndex,
+            pageSize: pageSize,
+            onPageChange: function (n, type) {  
+                if (type =='change') { 
+                	if(n!=model.pageIndex){
+                		 model.pageIndex = n;    //点击改变页码时，同步model中的页码  
+                         getUserList();               //重新生成新表  
+                	}                   
+                }  
+            }
+        });
+    }
+</script>
+</html>
