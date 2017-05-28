@@ -1,0 +1,6 @@
+
+--创建用户
+CREATE USER 'bankad'@'%' IDENTIFIED BY '22222222';
+GRANT ALL PRIVILEGES ON bankad.* TO 'bankad'@'%';
+FLUSH PRIVILEGES;
+
