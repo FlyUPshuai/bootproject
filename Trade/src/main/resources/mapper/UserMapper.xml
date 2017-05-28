@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须是mapper的 接口 -->
+<!-- 注意ID，必须和接口对应 -->
+<mapper namespace="com.demo.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.demo.entity.User" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="logintime" property="loginTime" jdbcType="DATE" />
+  </resultMap>
+	<select id="getUsers" resultMap="BaseResultMap">
+   		select *  from user;
+	</select> 
+</mapper>

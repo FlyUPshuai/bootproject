@@ -3,7 +3,7 @@ package com.demo.entity;
 public class User {	
 	
 	    private String name;  
-	    private String loginTime;	  	    
+	    private String loginTime;
 
 		public String getLoginTime() {
 			return loginTime;

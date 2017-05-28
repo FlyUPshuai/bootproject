@@ -19,9 +19,15 @@
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
 		<mysql.driver.version>5.1.30</mysql.driver.version>
 		<spring.version>4.3.7.RELEASE</spring.version>
+		<druid_version>1.0.28</druid_version>
 	</properties>
 
   <dependencies>
+	  <dependency>
+		  <groupId>com.alibaba</groupId>
+		  <artifactId>druid</artifactId>
+		  <version>${druid_version}</version>
+	  </dependency>
 	  <dependency>
 		  <groupId>org.mybatis</groupId>
 		  <artifactId>mybatis</artifactId>
@@ -58,14 +64,15 @@
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
 
-	<dependency>  
-	    <groupId>org.springframework.boot</groupId>  
-	    <artifactId>spring-boot-starter-data-mongodb</artifactId>  
-	</dependency>
 	  <dependency>
 		  <groupId>org.springframework.boot</groupId>
 
 		  <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.mybatis.spring.boot</groupId>
+		  <artifactId>mybatis-spring-boot-starter</artifactId>
+		  <version>1.0.0</version>
 	  </dependency>
 
 
