@@ -1,13 +1,13 @@
 package com.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.demo.entity.Page;
+import com.demo.entity.User;
 import com.demo.service.UserInfoService;
-import com.demo.service.impl.UserInfoServiceImp;
+import org.h2.util.IntArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.demo.entity.User;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +21,11 @@ public class UserController {
 
 
 
+
 	//用户量
     @RequestMapping(value = "/users" , method= RequestMethod.GET)
-    public String users() {
-         List<User> list=UserInfoService.getUsers();
+    public String users(Integer id) {
+        User list=UserInfoService.getUsers(id);
         Map<String,Object> map=new HashMap<String,Object>(1);
         map.put("users",list);
         System.out.print("User:::::"+JSON.toJSONString(map));

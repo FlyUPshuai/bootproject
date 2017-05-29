@@ -5,15 +5,15 @@ import com.demo.entity.User;
 import com.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service("UserInfoService")
 public class UserInfoServiceImp implements UserInfoService{
     @Autowired
     UserMapper userMapper;
     @Override
-    public List<User> getUsers() {
-        List<User> users=userMapper.getUsers();
+    public User getUsers(Integer id) {
+        User users=userMapper.selectByPrimaryKey(Integer.valueOf(1));
         return users;
     }
 }
+
