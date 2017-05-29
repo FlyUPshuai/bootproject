@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -18,7 +18,8 @@ import javax.sql.DataSource;
 
 @Configuration  
 @ComponentScan  
-@EnableAutoConfiguration  
+@EnableAutoConfiguration
+@ServletComponentScan
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
 
