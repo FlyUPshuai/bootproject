@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration  
 @ComponentScan  
 @EnableAutoConfiguration
-@ServletComponentScan
+@ServletComponentScan(value = "com.demo.druid")
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
 
@@ -27,7 +27,7 @@ public class Application {
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource() {
-        return new org.apache.tomcat.jdbc.pool.DataSource();
+        return new com.alibaba.druid.pool.DruidDataSource();
     }
 
     //提供SqlSeesion
