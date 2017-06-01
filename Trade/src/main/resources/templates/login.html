@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>bootstrap后台登录界面代码 - 站长素材</title>
+
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="../static/css/login.css" rel="stylesheet"/>
+	<script>
+		function login() {
+			$.ajax({
+				url: "/user/login",
+				data: {"productID":1},
+				type:"POST",
+				success: function (result) {
+
+				}
+			});
+		}
+	</script>
+
+</head>
+
+<body>
+
+<div class="signin">
+	<div class="signin-head"><img src="../static/images/test/head_120.png" alt="" class="img-circle"/></div>
+	<form class="form-signin" role="form">
+		<input type="text" class="form-control" placeholder="用户名" />
+		<input type="password" class="form-control" placeholder="密码"  />
+		<button class="btn btn-lg btn-warning btn-block" type="submit" onclick="login()" >登录</button>
+		<label class="checkbox">
+			<input type="checkbox" value="remember-me"/> 记住我
+		</label>
+	</form>
+</div>
+
+</body>
+</html>
